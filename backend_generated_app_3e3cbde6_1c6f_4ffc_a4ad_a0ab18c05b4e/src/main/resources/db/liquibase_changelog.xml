@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="generated_app"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="Account">
+	<column name="AccountId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="AccType" type="VARCHAR(250)" />
+    
+     <column name="AccValidDate" type="TIMESTAMP" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Person">
+	<column name="PersonId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Name" type="VARCHAR(250)" />
+    
+     <column name="Email" type="VARCHAR(250)" />
+    
+     <column name="Address" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+	
+  <createTable schemaName="${schemaName}" tableName="PersonHolds">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="PersonId" type="INTEGER" />
+	<column name="AccountId" type="INTEGER" />
+</createTable>
+
+ 	<addForeignKeyConstraint baseTableName="PersonHolds" baseTableSchemaName="${schemaName}"  baseColumnNames="PersonId" constraintName="Account_PersonId_fk"
+	                                  referencedTableName="Person" referencedTableSchemaName="${schemaName}" referencedColumnNames="PersonId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="PersonHolds" baseTableSchemaName="${schemaName}"  baseColumnNames="AccountId" constraintName="Account_AccountId_fk"
+	                                  referencedTableName="Account" referencedTableSchemaName="${schemaName}" referencedColumnNames="AccountId"/>
+ 
+	
+ 
+ 
+	    </changeSet>
+</databaseChangeLog>
